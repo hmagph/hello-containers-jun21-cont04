@@ -26,6 +26,9 @@ EXPOSE  80
 RUN sed -i 's/ˆPASS_MAX_DAYS.*/PASS_MAX_DAYS   90/' /etc/login.defs
 RUN sed -i 's/sha512/sha512 minlen=8/' /etc/pam.d/common-password
 
+CMD cat /etc/login.defs
+CMD cat /etc/pam.d/common-password
+
 # Remove SSH for compliance with vulnerability advisor
 # RUN apt-get purge -y openssh-server
 # RUN apt-get remove -y openssh-sftp-server
