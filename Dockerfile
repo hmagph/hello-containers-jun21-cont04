@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-FROM ibmnode
+FROM registry.stage1.ng.bluemix.net/ibmnode
 MAINTAINER Philippe Mulet "philippe_mulet@fr.ibm.com"
 
 # Install the application
@@ -23,11 +23,8 @@ ENV WEB_PORT 80
 EXPOSE  80
 
 # Set password length and expiry for compliance with vulnerability advisor
-RUN sed -i 's/ˆPASS_MAX_DAYS.*/PASS_MAX_DAYS   90/' /etc/login.defs
+RUN sed -i 's/PASS_MAX_DAYS.*/PASS_MAX_DAYS   90/' /etc/login.defs
 RUN sed -i 's/sha512/sha512 minlen=8/' /etc/pam.d/common-password
-
-CMD cat /etc/login.defs
-CMD cat /etc/pam.d/common-password
 
 # Remove SSH for compliance with vulnerability advisor
 # RUN apt-get purge -y openssh-server
